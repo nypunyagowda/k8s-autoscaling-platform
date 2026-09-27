@@ -1,0 +1,49 @@
+
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: autoscaling-demo
+
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: autoscaling-demo
+
+  template:
+    metadata:
+      labels:
+        app: autoscaling-demo
+
+    spec:
+      containers:
+        - name: autoscaling-demo
+          image: k8s-autoscaling-demo:v1
+          imagePullPolicy: IfNotPresent
+
+          ports:
+            - containerPort: 8080
+
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "64Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 3
+            periodSeconds: 5
+
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
