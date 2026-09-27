@@ -230,7 +230,7 @@ This demonstrates Kubernetes self-healing through reconciliation of the desired 
 
 ## Author
 
-**Aditya BG**
+**K S NYPUNYA**
 
 MCA Student | Cloud Computing | Kubernetes | Docker | Python
 
